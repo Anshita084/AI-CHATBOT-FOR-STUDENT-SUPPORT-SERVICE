@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}FAQs - Student Support Chatbot{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <h1>Frequently Asked Questions</h1>
+    <p class="subtitle">Browse answers by category, or head to the chat to ask directly.</p>
+
+    {% for category, items in grouped.items() %}
+    <div class="faq-category">
+        <h2>{{ category }}</h2>
+        {% for item in items %}
+        <details class="faq-item">
+            <summary>{{ item.Question }}</summary>
+            <p>{{ item.Answer }}</p>
+        </details>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
