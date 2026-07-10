@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Chat - Student Support Chatbot{% endblock %}
+
+{% block content %}
+<div class="chat-page">
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="bot-avatar">🤖</div>
+            <div>
+                <h2>Student Support Assistant</h2>
+                <span class="status-dot"></span> <span class="status-text">Online 24×7</span>
+            </div>
+        </div>
+
+        <div class="chat-window" id="chatWindow">
+            <div class="message bot-message">
+                <div class="bubble">
+                    Hi! I'm your Student Support Assistant 👋<br>
+                    Ask me about admissions, fees, exams, results, library, hostel, placements, scholarships, or leave applications.
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-chips">
+            <button class="chip" onclick="sendQuickMessage('What is the admission process?')">Admissions</button>
+            <button class="chip" onclick="sendQuickMessage('How do I pay fees?')">Fees</button>
+            <button class="chip" onclick="sendQuickMessage('What are library timings?')">Library</button>
+            <button class="chip" onclick="sendQuickMessage('How can I apply for leave?')">Leave</button>
+            <button class="chip" onclick="sendQuickMessage('When are examinations conducted?')">Exams</button>
+        </div>
+
+        <form id="chatForm" class="chat-input-area">
+            <input type="text" id="userInput" placeholder="Type your question here..." autocomplete="off" required>
+            <button type="submit">Send ➤</button>
+        </form>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+{% endblock %}
