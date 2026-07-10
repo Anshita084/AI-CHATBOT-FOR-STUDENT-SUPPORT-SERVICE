@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="admin-header">
+        <h1>Admin Dashboard</h1>
+        <a href="{{ url_for('admin_logout') }}" class="btn-logout">Logout</a>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ total_faqs }}</div>
+            <div class="stat-label">Total FAQs</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ total_chats }}</div>
+            <div class="stat-label">Total Chats</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ total_students }}</div>
+            <div class="stat-label">Registered Students</div>
+        </div>
+        <div class="stat-card">
+            <a href="{{ url_for('admin_chat_history') }}" class="btn-view">View Chat History →</a>
+        </div>
+    </div>
+
+    <h2>Add New FAQ</h2>
+    <form class="faq-form" method="POST" action="{{ url_for('admin_faq_add') }}">
+        <input type="text" name="category" placeholder="Category (e.g. Fees)" required>
+        <input type="text" name="question" placeholder="Question" required>
+        <textarea name="answer" placeholder="Answer" required></textarea>
+        <button type="submit">+ Add FAQ</button>
+    </form>
+
+    <h2>Manage FAQs</h2>
+    <div class="faq-manage-list">
+        {% for faq in faqs %}
+        <div class="faq-manage-item">
+            <form method="POST" action="{{ url_for('admin_faq_update', faq_id=faq.FAQ_ID) }}" class="faq-form inline">
+                <input type="text" name="category" value="{{ faq.Category }}" required>
+                <input type="text" name="question" value="{{ faq.Question }}" required>
+                <textarea name="answer" required>{{ faq.Answer }}</textarea>
+                <div class="faq-actions">
+                    <button type="submit" class="btn-update">Update</button>
+                </div>
+            </form>
+            <form method="POST" action="{{ url_for('admin_faq_delete', faq_id=faq.FAQ_ID) }}"
+                  onsubmit="return confirm('Delete this FAQ?');">
+                <button type="submit" class="btn-delete">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
